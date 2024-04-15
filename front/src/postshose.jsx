@@ -1,4 +1,12 @@
+import React from "react";
+import axios from "axios";
+
 const PostShosePage = () => {
+  const [postShos, setPostShos] = useState({
+    name: "",
+    brand: "",
+  });
+
   const AxiosPostShos = async (name, brand) => {
     try {
       console.log(name, brand);
