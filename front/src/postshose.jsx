@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const PostShosePage = () => {
@@ -15,7 +15,6 @@ const PostShosePage = () => {
         brand: brand,
       });
       console.log(response.data);
-      getShose();
     } catch (e) {
       console.error(e);
     }

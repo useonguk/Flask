@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import LandingPage from "./landing";
 
 function App() {
+  const [page, setPage] = useState("first");
   const [stores, setStores] = useState([]);
   const [shes, setShes] = useState([]);
   const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
     getStore();
+    getShose();
   }, []);
 
   const getStore = async () => {
@@ -42,59 +45,76 @@ function App() {
     }
   };
 
+  const groupedInventory = inventory.reduce((groups, item) => {
+    const groupIndex = groups.findIndex((group) => group[0] === item[1]);
+    if (groupIndex !== -1) {
+      groups[groupIndex].push(item);
+    } else {
+      groups.push([item[1], item]);
+    }
+    return groups;
+  }, []);
+
   return (
     <>
-      <Sidebar>
-        <SidebarContent>
-          <RowCenter>
-            <h2>Stores</h2>
-            <h2
-              onClick={() => {
-                getShose();
-              }}
-            >
-              Shos
-            </h2>
-          </RowCenter>
-          <ul>
-            {stores.map((store) => (
-              <SidebarList
-                key={store[0]}
-                onClick={() => {
-                  getStoreShose(store[0]);
-                }}
-              >
-                {store[1]}, 위치: {store[2]}
-              </SidebarList>
-            ))}
-          </ul>
-          {Array.isArray(shes) && shes.length > 0 && (
-            <ul>
-              <h3>신발보기</h3>
-              {shes.map((prev) => {
-                return (
-                  <SidebarList key={prev.id}>
-                    {" "}
-                    {/* 적절한 키를 사용하세요 */}
-                    {prev.name}, {prev.brand}{" "}
-                    {/* 필드명을 실제로 사용하는 필드명으로 변경하세요 */}
+      {page === "first" ? (
+        <>
+          <Sidebar>
+            <SidebarContent>
+              <RowCenter>
+                <h2>Stores</h2>
+                <h2>Shos</h2>
+                <h2
+                  onClick={() => {
+                    setPage("Landing");
+                  }}
+                >
+                  등록하로 가기
+                </h2>
+              </RowCenter>
+              <ul>
+                {stores.map((store) => (
+                  <SidebarList
+                    key={store[0]}
+                    onClick={() => {
+                      getStoreShose(store[0]);
+                    }}
+                  >
+                    {store[1]}, 위치: {store[2]}
                   </SidebarList>
-                );
-              })}
-            </ul>
-          )}
-        </SidebarContent>
-      </Sidebar>
-      <div style={{ margin: "30vw" }}>
-        {inventory.length === 0 && <div>신발이 없는 매장이와요</div>}
-        {inventory.map((prev, index) => {
-          return (
-            <div key={index}>
-              {prev[0]}, {prev[1]}, {prev[2]}, {prev[3]},
-            </div>
-          );
-        })}
-      </div>
+                ))}
+              </ul>
+              {Array.isArray(shes) && shes.length > 0 && (
+                <ul>
+                  <h3>신발보기</h3>
+                  {shes.map((prev) => {
+                    return (
+                      <SidebarList key={prev[0]}>
+                        {prev[1]}, {prev[2]}
+                      </SidebarList>
+                    );
+                  })}
+                </ul>
+              )}
+            </SidebarContent>
+          </Sidebar>
+          <div style={{ marginLeft: "35vw", marginTop: "30px" }}>
+            {inventory.length === 0 && <div>신발이 없는 매장이와요</div>}
+            {groupedInventory.map((group, index) => (
+              <div key={index}>
+                <h3>{group[0]}</h3>
+                {group.slice(1).map((prev, idx) => (
+                  <div key={idx}>
+                    {prev[0]}, {prev[1]}, {prev[2]}, {prev[3]},
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <LandingPage />
+      )}
     </>
   );
 }

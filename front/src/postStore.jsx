@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import axios from "axios";
 
 const PostStorePage = () => {
@@ -10,7 +11,6 @@ const PostStorePage = () => {
         location: location,
       });
       console.log(response.data);
-      setShes(response.data);
     } catch (e) {
       console.error(e);
     }
