@@ -113,7 +113,7 @@ function App() {
           </div>
         </>
       ) : (
-        <LandingPage />
+        <LandingPage setState={setPage} />
       )}
     </>
   );
