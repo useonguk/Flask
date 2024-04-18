@@ -10,22 +10,24 @@ const GetStoreInShos = () => {
   const [size, setSize] = useState("");
 
   useEffect(() => {
-    getStores();
-    getShoes();
+    getStore();
+    getShose();
   }, []);
 
-  const getStores = async () => {
+  const getStore = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:5000/get_store");
+      console.log("렌딩 가끼엏애멀햐", response.data);
       setStores(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const getShoes = async () => {
+  const getShose = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:5000/get_shose");
+      console.log("렌딩신발", response.data);
       setShes(response.data);
     } catch (error) {
       console.error(error);
@@ -63,6 +65,7 @@ const GetStoreInShos = () => {
 
   return (
     <>
+      <h1>가계 신발 등록하기</h1>
       <select onChange={handleCompanyChange}>
         <option value="">회사를 선택하세요</option>
         {stores.map((company, index) => (

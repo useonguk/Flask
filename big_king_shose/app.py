@@ -2,6 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 from controllers.index import shose_blueprint
 
+# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발# 신발  
+
 app = Flask(__name__)
 app.register_blueprint(shose_blueprint)
 
@@ -9,4 +11,5 @@ app.register_blueprint(shose_blueprint)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 if __name__ == '__main__':
+    print(app)
     app.run(debug=True)

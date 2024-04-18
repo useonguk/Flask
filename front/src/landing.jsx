@@ -14,9 +14,15 @@ const LandingPage = ({ setState }) => {
         렌딩 페이지
       </div>
       <div>
-        <GetStoreInShos />
-        <PostShosePage />
-        <PostStorePage />
+        <div>
+          <GetStoreInShos />
+        </div>
+        <div>
+          <PostShosePage />
+        </div>
+        <div>
+          <PostStorePage />
+        </div>
       </div>
     </>
   );

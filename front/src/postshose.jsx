@@ -21,6 +21,7 @@ const PostShosePage = () => {
   };
   return (
     <>
+      <h1>신발 등록하기</h1>
       <input
         type="text"
         placeholder="신발 이름"

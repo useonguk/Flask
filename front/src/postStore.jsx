@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const PostStorePage = () => {
@@ -17,6 +17,7 @@ const PostStorePage = () => {
   };
   return (
     <>
+      <h1>가계 등록하기</h1>
       <input
         type="text"
         placeholder="가게 이름"
